@@ -76,7 +76,10 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
   iframe {
-    width: 100%; height: 100vh; border: none; display: block; background: #0b0b0d;
+    position: fixed; inset: 0;
+    width: 100%; height: 100%;
+    height: 100dvh;          /* tinggi yang sesuai area yang benar-benar terlihat */
+    border: none; display: block; background: #0b0b0d;
   }
   #fallback {
     display: none; position: fixed; inset: 0; z-index: 10; background: #0b0b0d; color: #f4f4f5;

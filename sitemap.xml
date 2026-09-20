@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  GANTI setiap "https://GANTI-DENGAN-URL-GITHUB-PAGES-KAMU/" di bawah
+  dengan URL GitHub Pages asli kamu, misal:
+  https://namakamu.github.io/konveksi-kaos-landing/
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://GANTI-DENGAN-URL-GITHUB-PAGES-KAMU/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

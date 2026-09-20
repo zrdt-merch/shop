@@ -1,0 +1,8 @@
+# robots.txt untuk GitHub Pages
+# GANTI "GANTI-DENGAN-URL-GITHUB-PAGES-KAMU" di sitemap.xml dan baris Sitemap di bawah
+# dengan URL asli, misal: https://namakamu.github.io/konveksi-kaos-landing/
+
+User-agent: *
+Allow: /
+
+Sitemap: https://GANTI-DENGAN-URL-GITHUB-PAGES-KAMU/sitemap.xml

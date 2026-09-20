@@ -5,4 +5,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://GANTI-DENGAN-URL-GITHUB-PAGES-KAMU/sitemap.xml
+Sitemap: https://https://zrdt-merch.github.io/shop/sitemap.xml

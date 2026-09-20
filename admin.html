@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--
+  IFRAME EMBED untuk GitHub Pages
+  =================================
+  Tujuan: membungkus Web App Google Apps Script kamu (script.google.com/macros/s/.../exec)
+  supaya bisa diakses lewat domain GitHub Pages kamu sendiri (mis. namakamu.github.io/konveksi-kaos).
+
+  CARA PASANG:
+  1. Ganti nilai APPS_SCRIPT_URL di bawah dengan URL deployment Web App kamu
+     (bentuknya: https://script.google.com/macros/s/AKfycb.../exec)
+  2. Buat repo baru di GitHub, misal "konveksi-kaos-landing".
+  3. Upload file ini ke repo, rename jadi "index.html".
+  4. Repo → Settings → Pages → Source: pilih branch "main", folder "/ (root)" → Save.
+  5. Tunggu 1-2 menit, GitHub kasih URL: https://namakamu.github.io/konveksi-kaos-landing/
+  6. Untuk buka dashboard admin lewat domain GitHub Pages: tambahkan ?page=admin di URL GitHub Pages-nya,
+     script kecil di bawah akan meneruskannya ke iframe.
+
+  CATATAN PENTING:
+  - Google Apps Script Web App by default MENGIZINKAN iframe (kode Code.gs paket ini sudah set
+    setXFrameOptionsMode(ALLOWALL)), jadi iframe ini akan bekerja. Kalau kamu ubah setting itu,
+    iframe bisa gagal load (blank/putih) karena X-Frame-Options.
+  - Alamat URL asli script.google.com TETAP terlihat oleh browser saat request jalan (misal di
+    Network tab / saat redirect awal), iframe hanya membungkus tampilannya di dalam domain GitHub Pages kamu.
+  - Google kadang menampilkan halaman interstitial "This app is not verified" untuk deployment baru.
+    Ini normal untuk Web App yang dipakai sendiri/terbatas; klik lanjut/advanced untuk masuk.
+-->
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konveksi Kaos Custom</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; height: 100%; width: 100%;
+    background: #0b0b0d; overflow: hidden;
+  }
+  #loading {
+    position: fixed; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 14px;
+    background: #0b0b0d; color: #9a9aa2; font-family: system-ui, sans-serif; z-index: 5;
+    transition: opacity .3s ease;
+  }
+  #loading.hide { opacity: 0; pointer-events: none; }
+  .spinner {
+    width: 34px; height: 34px; border: 3px solid #2a2a30;
+    border-top-color: #ffde59; border-radius: 50%; animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  iframe {
+    width: 100%; height: 100vh; border: none; display: block; background: #0b0b0d;
+  }
+  #fallback {
+    display: none; position: fixed; inset: 0; z-index: 10; background: #0b0b0d; color: #f4f4f5;
+    font-family: system-ui, sans-serif; align-items: center; justify-content: center; text-align: center; padding: 30px;
+  }
+  #fallback a { color: #ffde59; font-weight: 700; }
+</style>
+</head>
+<body>
+
+  <div id="loading">
+    <div class="spinner"></div>
+    <div>Memuat halaman…</div>
+  </div>
+
+  <iframe
+    id="appFrame"
+    src=""
+    title="Konveksi Kaos Custom"
+    allow="clipboard-write"
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+
+  <div id="fallback">
+    <div>
+      <p>Halaman tidak bisa dimuat dalam iframe.</p>
+      <p><a id="directLink" href="#" target="_blank" rel="noopener">Buka langsung di tab baru →</a></p>
+    </div>
+  </div>
+
+<script>
+  // 1) GANTI dengan URL deployment Web App Apps Script kamu:
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwbiAKjbDok4u4fmGLozaTlOw5hVIL-CE-fozu0B9EgG5GVAX5FuOjsX8QpC6s6MzMW4w/exec?page=admin';
+
+  // 2) Teruskan query string (misal ?page=admin) dari URL GitHub Pages ke iframe
+  const params = window.location.search; // contoh: "?page=admin"
+  const targetUrl = APPS_SCRIPT_URL + params;
+
+  const frame = document.getElementById('appFrame');
+  const loading = document.getElementById('loading');
+  const fallback = document.getElementById('fallback');
+  document.getElementById('directLink').href = targetUrl;
+
+  frame.src = targetUrl;
+
+  frame.addEventListener('load', () => {
+    loading.classList.add('hide');
+  });
+
+  // Kalau iframe gagal (mis. diblokir), tampilkan fallback link langsung setelah beberapa detik
+  setTimeout(() => {
+    if (!loading.classList.contains('hide')) {
+      loading.classList.add('hide');
+      fallback.style.display = 'flex';
+    }
+  }, 8000);
+</script>
+</body>
+</html>
